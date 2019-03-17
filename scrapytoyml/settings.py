@@ -15,7 +15,7 @@ SPIDER_MODULES = ['scrapytoyml.spiders']
 NEWSPIDER_MODULE = 'scrapytoyml.spiders'
 
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
+# Crawl responsibly by` identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'scrapytoyml (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
@@ -33,7 +33,7 @@ ROBOTSTXT_OBEY = True
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -64,9 +64,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'scrapytoyml.pipelines.ScrapytoymlPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'scrapytoyml.pipelines.ItemXMLPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
