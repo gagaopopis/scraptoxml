@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="2019-02-05 17:22">
+  <shop>
+    <name>Треви</name>
+    <company>ООО Ферст</company>
+    <url>http://trevi.by/</url>
+    <currencies>
+      <currency id="RUR" rate="1"/>
+    </currencies>
+    <categories>
+      <category id="1">Мягкая мебель</category>
+      <category id="100" parentId="1">Угловой диван</category>
+      <category id="101" parentId="1">Линейный диван</category>
+      <category id="102" parentId="1">Кресло</category>
+      <category id="103" parentId="1">Модульный диван</category>
+      <category id="104" parentId="1">Кухонный диван</category>
+      <category id="105" parentId="1">Офисный диван</category>
+      <category id="106" parentId="1">Пуфы</category>
+      <category id="107" parentId="1">Подушки</category>
+    </categories>
+    <delivery-options>условия доставки</delivery-options>
+    <pickup-options>условия самовывоза</pickup-options>
+    <offer id="1" type="vendor.model" available="false" group_id="1">
+      <model>Берг</model>
+      <typePrefix>угловой диван</typePrefix>
+      <vendor>ООО Треви</vendor>
+      <url>http://shop.ru/catalog/korpusnaya_mebel/uglovoy_shkaf_atlanta/</url>
+      <price from="true">66551</price>
+      <currencyId>RUR</currencyId>
+      <categoryId>17</categoryId>
+      <picture>http://trevi.by/trevi_medias/katalog-mebeli/uglovye-divany/berg/berg.jpg</picture>
+      <store>false</store>
+      <delivery>true</delivery>
+      <description>«Берг» – модель лаконичного дизайна с классическими формами, предназначенная для ежедневного отдыха.
+Комфортность дивану придают широкие подлокотники оригинальной формы и спинка дивана, состоящая из двух горизонтальных валиков, разных по мягкости. Особая эстетика достигается за счёт декоративных отстрочек. Вдоль углового сегмента, в продолжение подлокотника, размещается ламинированная полочка.</description>
+      <param name="Линейка">Берг</param>
+      <param name="Механизм трансформации">дельфин</param>
+      <param name="Наполнитель">пенополиуретан</param>
+      <param name="Обивка">микрофибра</param>
+      <param name="Пружинный блок">да</param>
+      <param name="Тип пружинного блока">змейка</param>
+      <param name="Ящик для белья">есть</param>
+      <param name="Подлокотники">есть</param>
+      <param name="Модульный">нет</param>
+      <param name="Угловой">да</param>
+      <param name="Материал">сосна</param>
+      <param name="Цвет">серый</param>
+      <param name="Цвет дерева">венге</param>
+      <param name="Ширина" unit="см">251</param>
+      <param name="Глубина" unit="см">165</param>
+      <param name="Высота" unit="см">97</param>
+      <param name="Ширина спального места" unit="см">120</param>
+      <param name="Глубина спального место " unit="см">200</param>
+    </offer>
+    <offer id="2" type="vendor.model" available="false" group_id="1">
+      <model>Берг</model>
+      <typePrefix>угловой диван</typePrefix>
+      <vendor>ООО Треви</vendor>
+      <url>http://shop.ru/catalog/korpusnaya_mebel/uglovoy_shkaf_atlanta/</url>
+      <currencyId>RUR</currencyId>
+      <categoryId>17</categoryId>
+      <picture>http://trevi.by/trevi_medias/katalog-mebeli/uglovye-divany/berg/berg.jpg</picture>
+      <store>false</store>
+      <delivery>true</delivery>
+      <description>«Берг» – модель лаконичного дизайна с классическими формами, предназначенная для ежедневного отдыха.
+Комфортность дивану придают широкие подлокотники оригинальной формы и спинка дивана, состоящая из двух горизонтальных валиков, разных по мягкости. Особая эстетика достигается за счёт декоративных отстрочек. Вдоль углового сегмента, в продолжение подлокотника, размещается ламинированная полочка.</description>
+      <param name="Линейка">Берг</param>
+      <param name="Механизм трансформации">дельфин</param>
+      <param name="Наполнитель">пенополиуретан</param>
+      <param name="Обивка">замша</param>
+      <param name="Пружинный блок">да</param>
+      <param name="Тип пружинного блока">змейка</param>
+      <param name="Расположение угла">справа</param>
+      <param name="Ящик для белья">есть</param>
+      <param name="Подлокотники">есть</param>
+      <param name="Модульный">нет</param>
+      <param name="Угловой">да</param>
+      <param name="Материал">сосна</param>
+      <param name="Цвет">синий</param>
+      <param name="Цвет дерева">орех</param>
+      <param name="Ширина" unit="см">251</param>
+      <param name="Глубина" unit="см">165</param>
+      <param name="Высота" unit="см">97</param>
+      <param name="Ширина спального места" unit="см">120</param>
+      <param name="Глубина спального место " unit="см">200</param>
+    </offer>
+   </shop>
+</yml_catalog>

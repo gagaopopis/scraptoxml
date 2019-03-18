@@ -36,16 +36,20 @@ def add_shop_to_xml():
     ET.SubElement(delivery, 'option', attrib={'cost':"5000", 'days':""})
     tree.write(xml_file_name, encoding='utf-8', xml_declaration=True)
     
-def main2():
+def pretify():
     #build_root_xml()
     #add_shop_to_xml()
     dom = xml.dom.minidom.parse(xml_file_name)
     pretty_xml_as_string = dom.toprettyxml()
+    with open(xml_file_name, 'w') as f:
+        f.write(pretty_xml_as_string)
     print(pretty_xml_as_string)
 
 
+
+
 def main():
-    os.remove(xml_file_name)
+    if os.path.exists(xml_file_name): os.remove(xml_file_name)
     s = get_project_settings()
     s.set('XMLFILE', xml_file_name, priority='project')
     process = CrawlerProcess(s)
@@ -56,4 +60,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    main2()
+    pretify()

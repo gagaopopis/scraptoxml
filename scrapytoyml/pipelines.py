@@ -41,13 +41,13 @@ class ItemXMLPipeline(object):
             value = item.get(key)
             if isinstance(value, list):
                 for l in value:
-                    p = ET.SubElement(offer, key)
+                    p = ET.SubElement(offer, key, attrib=item.fields[key])
                     p.text = l
             elif key.startswith("p_"):
                 p = ET.SubElement(offer, 'param', attrib=item.fields[key])
                 p.text = value
             else:
-                p = ET.SubElement(offer, key)
+                p = ET.SubElement(offer, key, attrib=item.fields[key])
                 p.text = value
 
         """

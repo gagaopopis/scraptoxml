@@ -27,7 +27,7 @@ class Offer(Item):
     p_series = Field(name="Линейка")    #  товарная линейка
     p_upholstery = Field(name="Обивка")    # обивка
     p_filler = Field(name="Наполнение")    #  наполнение
-    p_material = Field(name="Материал")   #   материал элементов конструкции
+    p_material = Field(name="Материал каркаса")   #   материал элементов конструкции
     p_color = Field(name="Цвет") # цвет
     p_wood_type = Field(name="Цвет дерева") # тип деревянной поверхности
     p_transformation = Field(name="Механизм трансформации")    # система трансформации
