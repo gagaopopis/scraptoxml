@@ -9,6 +9,7 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
 xml_file_name = os.path.join(os.path.dirname(__file__), "catalog.xml")
+xlsx_file_name = os.path.join(os.path.dirname(__file__), "catalog.xlsx")
 
 def build_root_xml():
     tree = ET.ElementTree()
@@ -43,7 +44,7 @@ def pretify():
     pretty_xml_as_string = dom.toprettyxml()
     with open(xml_file_name, 'w') as f:
         f.write(pretty_xml_as_string)
-    print(pretty_xml_as_string)
+    #print(pretty_xml_as_string)
 
 
 
@@ -52,6 +53,8 @@ def main():
     if os.path.exists(xml_file_name): os.remove(xml_file_name)
     s = get_project_settings()
     s.set('XMLFILE', xml_file_name, priority='project')
+    s.set('XLSXFILE', xlsx_file_name, priority='project')
+
     process = CrawlerProcess(s)
 
     # 'followall' is the name of one of the spiders of the project.

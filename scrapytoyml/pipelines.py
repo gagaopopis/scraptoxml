@@ -5,7 +5,88 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import xml.etree.ElementTree as ET
+from openpyxl import Workbook
 import datetime
+
+class ItemExcelPipeline(object):
+    column_names = {'_id':'ID (Артикул)*', '_group_id':'Групповой идентификатор',
+               'typePrefix':'Тип', 'model':"Наименование*", "description":"Описание",
+               "url":"Веб-адрес", "picture":'Адрес картинки', "price":"Цена (руб)*", "old_price":"Старая цена (руб)",
+               "p_series":"Линейка","p_filler":"Наполнение",
+               "p_material":"Материал каркаса","p_color":"Цвет",
+               "p_wood_type":"Цвет дерева", "p_transformation":"Механизм трансформации",
+               "p_suspension":"Пружинный блок", "p_modular":"Модульный",
+               "p_box":"Ящик для белья", "p_armrests":"Подлокотники",
+               "p_corner":"Угловой","p_width":"Ширина","p_depth":"Глубина",
+                     "p_height":"Высота", "p_sleep_width":"Ширина спального места",
+                     "p_sleep_length": "Длина спального места"
+                     }
+    columns_sofa = ['_id','_available', 'model', "price", "old_price", "description",
+     "picture", "picture_1", "picture_2", "picture_3", "picture_4",
+     "p_color", "p_transform", "p_transformation", "p_upholstery", "p_cloth", "country_of_origin",
+     "p_depth", "p_width","p_height", "p_sleep_width","p_sleep_length",
+     "p_box", "p_armrests", "p_bar", "p_usb", "p_remcover", "p_pillows"]
+    columns_corner = ['_id','_available', 'model', "price", "old_price", "description",
+     "picture", "picture_1", "picture_2", "picture_3", "picture_4",
+     "p_corner","p_color", "p_transform", "p_transformation",
+     "p_upholstery", "p_cloth", "country_of_origin",
+     "p_depth", "p_width","p_height", "p_sleep_width","p_sleep_length",
+     "p_box", "p_armrests", "p_bar", "p_usb", "p_remcover", "p_pillows"]
+    columns_chair = ['_id','_available', 'model', "price", "old_price", "description",
+     "picture", "picture_1", "picture_2", "picture_3", "picture_4",
+     "p_chair","p_color", "p_transform", "p_transformation",
+     "p_upholstery", "p_cloth", "country_of_origin",
+     "p_depth", "p_width","p_height", "p_sleep_width","p_sleep_length",
+     "p_box", "p_armrests", "p_bar", "p_usb", "p_remcover", "p_pillows"]
+    
+    columns_puf = ['_id','_available', 'model', "price", "old_price", "description",
+     "picture", "picture_1", "picture_2", "picture_3", "picture_4",
+     "p_color", "p_upholstery", "p_cloth", "country_of_origin",
+     "p_depth", "p_width","p_height",
+     "p_box", "p_remcover"]
+    columns_couch = ['_id','_available', 'model', "price", "old_price", "description",
+     "picture", "picture_1", "picture_2", "picture_3", "picture_4",
+     "p_color", "p_transform", "p_transformation",
+     "p_upholstery", "p_cloth", "country_of_origin",
+     "p_depth", "p_width","p_height", "p_sleep_width","p_sleep_length",
+     "p_box", "p_armrests", "p_remcover", "p_pillows"]
+
+     columns = {"Прямые диваны":columnds_sofa,
+      "Угловые диваны":columns_corner,
+       "Модульные диваны": columns_sofa,
+       "Кресла и мешки": columns_chair,
+       "Пуфы и банкетки":columns_puf,
+       "Кушетки":columns_couch }
+
+        
+    def __init__(self, xlsxfle):
+        self.xlsxfile = xlsxfle
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(xlsxfle=crawler.settings.get('XLSXFILE'))
+
+    def open_spider(self, spider):
+        self.wb = Workbook()
+        self.ws = self.wb.active
+        for c in self.columns:
+            col = self.columns.index(c)+1
+            v = self.column_names.get(c)
+            self.ws.cell(1, col, value=v)
+
+    def close_spider(self, spider):
+        self.wb.save(self.xlsxfile)
+
+    def process_item(self, item, spider):
+        row = self.ws.max_row+1
+        for c in self.columns:
+            col = self.columns.index(c)+1
+            v = item.get(c)
+            if isinstance(v, list):
+                v = v[0]
+            self.ws.cell(row, col,value=v)
+        return item
+
 
 class ItemXMLPipeline(object):
 
@@ -50,58 +131,4 @@ class ItemXMLPipeline(object):
                 p = ET.SubElement(offer, key, attrib=item.fields[key])
                 p.text = value
 
-        """
-        typePrefix = ET.SubElement(offer, 'typePrefix')
-        typePrefix.text = item.get('typePrefix')
-        categoryId = ET.SubElement(offer, 'categoryId')
-        categoryId.text = item.get('categoryId', default="")
-        vendor = ET.SubElement(offer, 'vendor')
-        vendor.text=item.get('vendor')
-        model = ET.SubElement(offer, 'model')
-        model.text = item.get('model')
-        description = ET.SubElement(offer, 'description')
-        description.text = item.get('description')
-        url = ET.SubElement(offer, 'url')
-        url.text=item.get('url', default="")
-        for pic in item.get('picture', default=""):
-            p = ET.SubElement(offer, 'picture')
-            p.text = pic
-        price = ET.SubElement(offer, 'price', attrib={'from':"true"})
-        price.text=item.get('price', default="")
-        currency = ET.SubElement(offer, 'currencyId')
-        currency.text = item.get('currencyId', default='RUR')
-        country = ET.SubElement(offer, 'country_of_origin')
-        country.text=item.get('country_of_origin', default='Беларусь')
-        notes = ET.SubElement(offer, 'sales_notes')
-        notes.text=item.get('sales_notes', default="")
-        p_series = ET.SubElement(offer, 'param', attrib={"name":"Линейка"})
-        p_series.text=item.get('p_series', default="")
-        p_modular = ET.SubElement(offer, 'param', attrib={"name":"Модульный"})
-        p_modular.text=item.get('p_modular', default='нет')
-        p_corner = ET.SubElement(offer, 'param', attrib={"name":"Угловой"})
-        p_corner.text = item.get('p_corner', default='нет')
-        ET.SubElement(offer, 'param', attrib={"name":"Механизм трансформации"})
-        text = item.get('p_transformation', default="")
-        ET.SubElement(offer, 'param', attrib={"name":"Обивка"}, text=item.get('p_upholstery', default=""))
-        ET.SubElement(offer, 'param', attrib={"name":"Наполнитель"}, text=item.get('p_filler', default=""))
-        ET.SubElement(offer, 'param', attrib={"name":"Материал"}, text=item.get('p_material', default=""))
-        ET.SubElement(offer, 'param', attrib={"name":"Пружинный блок"}, text=item.get('p_suspension', default='нет'))
-        ET.SubElement(offer, 'param', attrib={"name":"Ящик для белья"}, text=item.get('p_box', default='нет'))
-        ET.SubElement(offer, 'param', attrib={"name":"Подлокотники"}, text=item.get('p_armrests', default='нет'))
-        if item['p_modular'] == 'да':
-            ET.SubElement(offer, 'param', attrib={"name": "Ширина от", 'unit':'см'}, text=item.get('p_width', default=""))
-            ET.SubElement(offer, 'param', attrib={"name": "Ширина до", 'unit':'см'}, text=item.get('p_width', default=""))
-            ET.SubElement(offer, 'param', attrib={"name": "Глубина от", 'unit':'см'}, text=item.get('p_depth', default=""))
-            ET.SubElement(offer, 'param', attrib={"name": "Глубина до", 'unit':'см'}, text=item.get('p_depth', default=""))
-            ET.SubElement(offer, 'param', attrib={"name": "Ширина спального места от", 'unit':'см'}, text=item.get('p_sleep_width', default=""))
-            ET.SubElement(offer, 'param', attrib={"name": "Глубина спального места от", 'unit':'см'}, text=item.get('p_sleep_depth', default=""))
-        else:
-            ET.SubElement(offer, 'param', attrib={"name": "Ширина", 'unit': 'см'}, text=item.get('p_width', default=""))
-            ET.SubElement(offer, 'param', attrib={"name": "Глубина", 'unit':'см'}, text=item.get('p_depth', default=""))
-            ET.SubElement(offer, 'param', attrib={"name": "Ширина спального места", 'unit': 'см'},
-                          text=item.get('p_sleep_width', default=""))
-            ET.SubElement(offer, 'param', attrib={"name": "Глубина спального места", 'unit': 'см'},
-                          text=item.get('p_sleep_depth', default=""))
-        ET.SubElement(offer, 'param', attrib={"name": "Высота", 'unit':'см'}, text=item.get('p_height', default=""))
-        """
         return item

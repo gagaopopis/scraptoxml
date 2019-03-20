@@ -172,9 +172,10 @@ class ModelSpider(scrapy.Spider):
         item = Offer()
         base_url = response.css('base::attr(href)').get()
         self._id_generator +=1
+        product_header = response.css('div[id*=product-header]').css('span::text')[1].get().lower()
         item['_id'] = str(self._id_generator)
         item['model'] = response.css('div[id*=product-header]').css('span::text').get()
-        item['typePrefix'] = self.typePrefixes[response.css('div[id*=product-header]').css('span::text')[1].get().lower()]
+        item['typePrefix'] = self.typePrefixes[product_header]
         item['categoryId'] = self.categoryIds[item['typePrefix']]
         item['url'] = response.url
         item['vendor'] = "Треви"
@@ -193,8 +194,8 @@ class ModelSpider(scrapy.Spider):
         item['p_material'] = ""
         item['p_transformation'] = "нет"
         item['p_suspension'] = "нет"
-        item['p_modular'] = "да" if 'модульная' in item['typePrefix'].lower() else "нет"
-        item['p_corner'] = 'да' if 'угловой' in item['typePrefix'].lower() or 'угловой' in item['model'] else "нет"
+        item['p_modular'] = "да" if 'модульная' in product_header else "нет"
+        item['p_corner'] = 'да' if 'угловой' in product_header or 'угловой' in item['model'] else "нет"
         item['p_box'] = 'нет'
         item['p_armrests'] = 'нет'
         #item['p_recliner'] = 'нет'
