@@ -20,7 +20,7 @@ class Offer(Item):
     description = Field()   # описание модели
     url = Field()
     price = Field()
-    old_price  Field()
+    old_price = Field()
     currencyId = Field()
     country_of_origin = Field()
     picture = Field()
@@ -30,11 +30,15 @@ class Offer(Item):
     picture_4 = Field()
     sales_notes = Field()
     p_series = Field(name="Линейка")    #  товарная линейка
+    p_chair = Field(name='Тип кресла')
     p_upholstery = Field(name="Обивка")    # обивка
+    p_cloth = Field(name='Тип ткани')
     p_filler = Field(name="Наполнение")    #  наполнение
     p_material = Field(name="Материал каркаса")   #   материал элементов конструкции
+    p_corner = Field(name='Тип угла')
     p_color = Field(name="Цвет") # цвет
     p_wood_type = Field(name="Цвет дерева") # тип деревянной поверхности
+    p_transform = Field(name='Раскладной')
     p_transformation = Field(name="Механизм трансформации")    # система трансформации
     p_suspension = Field(name="Пружинный блок")    # пружина
     p_usb = Field(name="USB розетки")
@@ -43,7 +47,6 @@ class Offer(Item):
     p_bar = Field(name="Бар")
     p_pillows = Field(name="Декоративные подушки")
     p_remcover = Field(name="Съемный чехол")
-    #p_recliner = Field(name="Кресло-реклайнер") # кресло-реклайнер
     p_width = Field(name="Ширина (см)")
     p_depth = Field(name="Длина (см)")
     p_height = Field(name="Высота (см)")
